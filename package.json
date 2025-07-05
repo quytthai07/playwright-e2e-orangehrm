@@ -1,0 +1,16 @@
+{
+    "name": "playwright-e2e-orangehrm",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "npx playwright test",
+        "report": "npx playwright show-report"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.44.0",
+        "@types/node": "^24.0.10",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "xlsx": "^0.18.5"
+    }
+}
