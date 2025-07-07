@@ -1,4 +1,4 @@
-import { Page, TestInfo } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
 import { DashboardPage } from '../pages/dashboardPage';
 import { PIMPage } from '../pages/pimPage';
@@ -52,4 +52,14 @@ export async function loginAndNavigateToPIM(page: Page, username?: string, passw
   const pimPage = await navigateToPIM(page);
   
   return pimPage;
+}
+
+/**
+ * Assert that the given border color matches the expected error color (red)
+ * Accepts both hex and rgb formats used by OrangeHRM UI
+ * @param actualColor - The border color string to validate
+ */
+export function expectErrorBorderColor(actualColor: string) {
+  // Accept both hex and rgb formats for the error border color
+  expect(["#eb0910", "rgb(235, 9, 16)"]).toContain(actualColor);
 }

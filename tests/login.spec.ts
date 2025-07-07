@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
 import { getLoginDataByTestCase } from '../utils/excelTestData';
-import { performLogin } from '../utils/testHelpers';
+import { performLogin, expectErrorBorderColor } from '../utils/testHelpers';
 
 const loginTestData = getLoginDataByTestCase('TC_Login_01');
 for (let i = 0; i < loginTestData.length; i++) {
@@ -39,8 +39,8 @@ for (let i = 0; i < blankCredentialsData.length; i++) {
     await expect(loginPage.getPasswordRequiredMessage()).toHaveText('Required');
     const usernameBorder = await loginPage.getUsernameInput().evaluate((el) => getComputedStyle(el).borderColor);
     const passwordBorder = await loginPage.getPasswordInput().evaluate((el) => getComputedStyle(el).borderColor);
-    expect(["#eb0910", "rgb(235, 9, 16)"]).toContain(usernameBorder);
-    expect(["#eb0910", "rgb(235, 9, 16)"]).toContain(passwordBorder);
+    expectErrorBorderColor(usernameBorder);
+    expectErrorBorderColor(passwordBorder);
   });
 }
 
@@ -51,7 +51,7 @@ for (let i = 0; i < blankUsernameData.length; i++) {
     const loginPage = await performLogin(page, data.username, data.password);
     await expect(loginPage.getUsernameRequiredMessage()).toHaveText('Required');
     const usernameBorder = await loginPage.getUsernameInput().evaluate((el) => getComputedStyle(el).borderColor);
-    expect(["#eb0910", "rgb(235, 9, 16)"]).toContain(usernameBorder);
+    expectErrorBorderColor(usernameBorder);
   });
 }
 
@@ -62,7 +62,7 @@ for (let i = 0; i < blankPasswordData.length; i++) {
     const loginPage = await performLogin(page, data.username, data.password);
     await expect(loginPage.getPasswordRequiredMessage()).toHaveText('Required');
     const passwordBorder = await loginPage.getPasswordInput().evaluate((el) => getComputedStyle(el).borderColor);
-    expect(["#eb0910", "rgb(235, 9, 16)"]).toContain(passwordBorder);
+    expectErrorBorderColor(passwordBorder);
   });
 }
 
